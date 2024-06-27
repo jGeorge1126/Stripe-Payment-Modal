@@ -1,0 +1,58 @@
+.stepper-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    border-bottom: solid 1px lightgray;
+}
+.stepper-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+.stepper-item::before, .stepper-item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2px;
+    background-color: #dcdcdc;
+    width: 100%;
+    z-index: -1;
+}
+.stepper-item::after {
+    left: 50%;
+}
+.stepper-item::before {
+    right: 50%;
+}
+.stepper-item:first-child::before, .stepper-item:last-child::after {
+    content: none;
+}
+.stepper-item .step-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #dcdcdc;
+    color: white;
+}
+.stepper-item.active .step-counter {
+    background-color: #007bff;
+}
+.stepper-item .step-name {
+    margin-top: 10px;
+    text-align: center;
+}
+.stepper-item.active .step-name {
+    font-weight: bold;
+}
+.form-step {
+    display: none;
+}
+.form-step.active {
+    display: block;
+}

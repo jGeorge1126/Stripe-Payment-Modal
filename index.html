@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap 5 Stepper with Form Validation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkoutModal">
+        Checkout
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content flex-row">
+                <div class="col-md-8">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="checkoutModalLabel">Checkout</h1>
+                    </div>
+                    <div class="modal-body">
+                        <div class="stepper-wrapper">
+                            <div class="stepper-item active" data-step="1">
+                                <div class="step-counter">1</div>
+                                <div class="step-name">User Information</div>
+                            </div>
+                            <div class="stepper-item" data-step="2">
+                                <div class="step-counter">2</div>
+                                <div class="step-name">Ticket Information</div>
+                            </div>
+                            <div class="stepper-item" data-step="3">
+                                <div class="step-counter">3</div>
+                                <div class="step-name">Billing Information</div>
+                            </div>
+                            <div class="stepper-item" data-step="4">
+                                <div class="step-counter">4</div>
+                                <div class="step-name">Payment Information</div>
+                            </div>
+                        </div>
+                
+                        <div id="stepperForm" class="needs-validation p-3" novalidate>
+                            <div class="form-step active" data-step="1">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                        <div class="invalid-feedback">
+                                            Please enter your first name.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                        <div class="invalid-feedback">
+                                            Please enter your last name.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" required>
+                                        <div class="invalid-feedback">
+                                            Please enter your email.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="phone" required>
+                                        <div class="invalid-feedback">
+                                            Please enter your phone number.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="form-step" data-step="2">
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <label for="ticket" class="form-label">Ticket</label>
+                                            <select class="form-select" id="ticket" required>
+                                                <option selected value="">Choose...</option>
+                                                <option value="1">Ticket 1</option>
+                                                <option value="2">Ticket 2</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select a ticket.
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label for="amount" class="form-label">Amount</label>
+                                            <input type="number" min="0" class="form-control" id="amount" required>
+                                            <div class="invalid-feedback">
+                                                Please increase ticket amount.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-step" data-step="3">
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" required>
+                                    <div class="invalid-feedback">
+                                        Please enter your address.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="city" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="city" required>
+                                    <div class="invalid-feedback">
+                                        Please enter your city.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="postalCode" class="form-label">Postal Code</label>
+                                    <input type="text" class="form-control" id="postalCode" required>
+                                    <div class="invalid-feedback">
+                                        Please enter your postal code.
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="form-step" data-step="4">
+                                <form id="checkout-form">
+                                    <div class="mb-3">
+                                        <label for="card-element" class="form-label">Credit or Debit Card</label>
+                                        <div id="card-element" class="form-control">
+                                            <!-- A Stripe Element will be inserted here. -->
+                                        </div>
+                                        <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Pay</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer position-absolute bottom-0 col-md-8" id="checkout-modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="nextStep()">Next</button>
+                    </div>
+                </div>
+                <div class="col-md-4 bg-light rounded">
+                    <div class="position-absolute end-0 p-2">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="col-md-12">
+                        <img src="assets/img/profile.png" class="w-100 rounded"/>
+                    </div>
+                    <div class="col-md-12 ps-3 pe-3 pb-5 mt-4">
+                        <div class="row m-0 p-0">
+                            <h4 class="fs-5">Order Summary</h4>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-md-8">1 x General Admission</div>
+                            <div class="col-md-4">CA$30.00</div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-md-8">Subtotal</div>
+                            <div class="col-md-4">CA$30.00</div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-md-8">Fees</div>
+                            <div class="col-md-4">CA$7.34</div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-md-8">Delivery<br/>1 x eTicket</div>
+                            <div class="col-md-4">CA$0.00</div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-md-8 fs-5">Total</div>
+                            <div class="col-md-4 fs-5">CA$37.34</div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <button type="button" class="btn btn-success pay-btn d-none" onclick="pay()">Pay</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script> -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="assets/script.js"></script>
+    <script src="assets/stripe.js"></script>
+</body>
+</html>
